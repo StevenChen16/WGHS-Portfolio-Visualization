@@ -3,14 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Portfolio Overview</title>
-    <script>
-        function updateData() {
-            fetch('/update-data')
-                .then(response => response.json())
-                .then(data => console.log(data.message))
-                .catch(error => console.error('Error updating data:', error));
-        }
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
     <style>
         body {
@@ -146,11 +138,11 @@
 
 
         // Fetch and display data
-        fetch('performances.json')
+        fetch('updated_performances.json')
         .then(response => response.json())
         .then(data => {
             const performance = data.result_data.performances[0];
-            document.getElementById('marketValue').textContent = `$${performance.market_value.toLocaleString()}`;
+            document.getElementById('marketValue').textContent = `$${performance.assets.toLocaleString()}`;
             document.getElementById('totalReturn').textContent = `$${performance.accum_amount.toLocaleString()}`;
             document.getElementById('totalReturnRate').textContent = `${(performance.accum_rate * 100).toFixed(2)}%`;
             document.getElementById('dailyReturn').textContent = `$${performance.day_float_amount.toLocaleString()}`;

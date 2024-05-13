@@ -1,7 +1,6 @@
 import json
 
-# classification字典
-# 需根据自己的柚子组合进行修改。这里仅作示范。
+# 假设classification字典已经给出，如上所示
 classification = {
     'DLR': ('Real Estate', 'Short-term'),
     'SHY': ('Fixed Income', 'Short-term'),

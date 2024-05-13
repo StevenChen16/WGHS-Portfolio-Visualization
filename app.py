@@ -1,19 +1,14 @@
-from flask import Flask, jsonify
+from flask import jsonify
 import subprocess
 
-app = Flask(__name__)
-
-@app.route('/update-data')
 def update_data():
     try:
-        # 执行 Python 脚本
-        subprocess.run(['python3', '/var/www/html/static/WGHS-Portfolio-Visualization/performances.py'], check=True)
-        subprocess.run(['python3', '/var/www/html/static/WGHS-Portfolio-Visualization/roa.py'], check=True)
-        subprocess.run(['python3', '/var/www/html/static/WGHS-Portfolio-Visualization/index_data_download.py'], check=True)
-        subprocess.run(['python3', '/var/www/html/static/WGHS-Portfolio-Visualization/classify_read.py'], check=True)
-        return jsonify({'status': 'success', 'message': 'Data updated successfully'})
+        subprocess.run(['python', 'D:/workstation/echarts/self/test/performances.py'], check=True)
+        print("Performances.py executed successfully.")
+        subprocess.run(['python', 'D:/workstation/echarts/self/test/roa.py'], check=True)
+        print("Roa.py executed successfully.")
+        # return jsonify({'status': 'success', 'message': 'Data updated successfully'})
     except subprocess.CalledProcessError as e:
-        return jsonify({'status': 'error', 'message': str(e)})
-
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+        print("Error executing scripts:", e)
+    
+update_data()
