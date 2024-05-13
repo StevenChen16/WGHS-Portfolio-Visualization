@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Portfolio Overview</title>
-    <!-- 引入 ECharts 文件 -->
+    <script>
+        function updateData() {
+            fetch('/update-data')
+                .then(response => response.json())
+                .then(data => console.log(data.message))
+                .catch(error => console.error('Error updating data:', error));
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
     <style>
         body {
