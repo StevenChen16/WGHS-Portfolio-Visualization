@@ -22,28 +22,35 @@ indexes = {
 
 index = '000300.ss'
 
-# 下载标普500指数数据
-data = yf.download(index, start=start_date, end=end_date)
+def downloads(index):
+    # 下载标普500指数数据
+    data = yf.download(index, start=start_date, end=end_date)
 
-# 计算每天的涨幅
-data['pct_change'] = (data['Close'] - data.iloc[0]['Close']) / data.iloc[0]['Close']
+    # 计算每天的涨幅
+    data['pct_change'] = (data['Close'] - data.iloc[0]['Close']) / data.iloc[0]['Close']
 
-# 将涨幅转换为百分比格式
-data['pct_change'] = data['pct_change'].apply(lambda x: f"{x:.2%}")
+    # 将涨幅转换为百分比格式
+    data['pct_change'] = data['pct_change'].apply(lambda x: f"{x:.2%}")
 
-# 将日期转换为字符串格式
-data.index = data.index.strftime("%Y-%m-%d")
+    # 将日期转换为字符串格式
+    data.index = data.index.strftime("%Y-%m-%d")
 
-# 选择需要输出的列
-output_data = data[['Close', 'pct_change']]
-# print(output_data.tail(10))
+    # 选择需要输出的列
+    output_data = data[['Close', 'pct_change']]
+    # print(output_data.tail(10))
 
-# 将数据转换为JSON格式
-json_data = output_data.to_json(orient="index")
-# print(json_data)
+    # 将数据转换为JSON格式
+    json_data = output_data.to_json(orient="index")
+    # print(json_data)
 
-# 将JSON数据保存到文件
-with open('{}_data.json'.format(indexes[index]), 'w') as file:
-    file.write(json_data)
+    # 将JSON数据保存到文件
+    with open('{}_data.json'.format(indexes[index]), 'w') as file:
+        file.write(json_data)
 
-print("数据已保存到 {}_data.json 文件中。".format(indexes[index]))
+    print("数据已保存到 {}_data.json 文件中。".format(indexes[index]))
+
+downloads("^GSPC")
+downloads("^DJI")
+downloads("^IXIC")
+downloads("000001.ss")
+downloads("000300.ss")
